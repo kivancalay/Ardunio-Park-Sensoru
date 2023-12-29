@@ -1,0 +1,96 @@
+#include <LiquidCrystal.h>
+
+int trigPin=8,echoPin=9,buzzer=10,led=11;
+LiquidCrystal lcd(6,7,5,4,3,2);
+
+void setup()
+{
+  pinMode(trigPin,OUTPUT);
+  pinMode(echoPin,INPUT);
+  pinMode(buzzer,OUTPUT);
+  pinMode(led,OUTPUT);
+  lcd.begin(16,2);
+  
+}
+
+void loop()
+{
+  long sure,mesafe;
+  digitalWrite(trigPin,0);
+  delayMicroseconds(2);
+  digitalWrite(trigPin,1);
+  delayMicroseconds(10);
+  digitalWrite(trigPin,0);
+  
+  sure = pulseIn(echoPin,1);
+  mesafe = (sure/2)/29.1;
+  
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Mesafe");
+  
+  lcd.setCursor(7,0); //kalan mesafeyi 8.bölmeden başlatıyoruz
+  lcd.print(mesafe);
+  
+  if(mesafe < 10){
+    lcd.setCursor(9,0);
+    lcd.print("cm");
+  }
+  else if(mesafe < 100){
+  lcd.setCursor(10,0);
+  lcd.print("cm");
+  }
+  else if(mesafe < 1000){
+  lcd.setCursor(11,0);
+  lcd.print("cm");
+  }
+  if(mesafe <= 5){
+    digitalWrite(buzzer,1);
+    digitalWrite(led,1);
+    delay(30);
+    digitalWrite(buzzer,0);
+    digitalWrite(led,0);
+    delay(30);
+  }
+   else if(mesafe <= 10){
+    digitalWrite(buzzer,1);
+    digitalWrite(led,1);
+    delay(60);
+    digitalWrite(buzzer,0);
+    digitalWrite(led,0);
+    delay(60);
+  }
+   else if(mesafe <= 15){
+    digitalWrite(buzzer,1);
+    digitalWrite(led,1);
+    delay(80);
+    digitalWrite(buzzer,0);
+    digitalWrite(led,0);
+    delay(80);
+  }
+  else if(mesafe <= 20){
+    digitalWrite(buzzer,1);
+    digitalWrite(led,1);
+    delay(100);
+    digitalWrite(buzzer,0);
+    digitalWrite(led,0);
+    delay(100);
+  }
+  else if(mesafe <= 25){
+    digitalWrite(buzzer,1);
+    digitalWrite(led,1);
+    delay(150);
+    digitalWrite(buzzer,0);
+    digitalWrite(led,0);
+    delay(150);
+  }
+    }
+  else if(mesafe <= 30){
+    digitalWrite(buzzer,1);
+    digitalWrite(led,1);
+    delay(230);
+    digitalWrite(buzzer,0);
+    digitalWrite(led,0);
+    delay(0);
+  }
+}
